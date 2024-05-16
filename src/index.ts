@@ -97,3 +97,7 @@ export const zEnvRequiredOnProductionHost = zEnvOptional.refine(
   'Required on production node env'
 )
 export const zEnvBoolean = z.enum(['true', 'false', '1', '0']).transform((val) => val === 'true' || val === '1')
+export const zEnvNumber = z
+  .string()
+  .refine((val) => !isNaN(Number(val)), 'Not a number')
+  .transform(Number)
