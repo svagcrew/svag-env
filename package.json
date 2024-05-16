@@ -17,6 +17,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "main": "./dist/index.js",
   "files": [
     "./dist/**/*"
   ],
@@ -49,5 +50,8 @@
     "tsc-alias": "^1.8.10",
     "typescript": "^5.4.5"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "zod": "^3.23.8"
+  }
 }
