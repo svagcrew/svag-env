@@ -57,10 +57,21 @@ export const createEnvThings = <T extends z.ZodObject<any>>({ schema, source }: 
     return parseResult.data as Prettify<Pick<z.infer<T>, K>>
   }
 
+  const isLocalHost = () => source.HOST_ENV === 'local'
+  const isProductionHost = () => source.HOST_ENV === 'production'
+  const isProductionEnv = () => source.NODE_ENV === 'production'
+  const isTestEnv = () => source.NODE_ENV === 'test'
+  const isDevelopmentEnv = () => source.NODE_ENV === 'development'
+
   return {
     getAllEnv,
     getOneEnv,
     getSomeEnv,
+    isLocalHost,
+    isProductionHost,
+    isProductionEnv,
+    isTestEnv,
+    isDevelopmentEnv,
   }
 }
 
@@ -97,7 +108,11 @@ export const zEnvRequiredOnProductionHost = zEnvOptional.refine(
   'Required on production node env'
 )
 export const zEnvBoolean = z.enum(['true', 'false', '1', '0']).transform((val) => val === 'true' || val === '1')
-export const zEnvNumber = z
-  .string()
-  .refine((val) => !isNaN(Number(val)), 'Not a number')
-  .transform(Number)
+export const zEnvNumber = z.union([
+  z
+    .string()
+    .refine((val) => !isNaN(Number(val)), 'Not a number')
+    .transform(Number),
+  z.number(),
+])
+export const zEnvInt = zEnvNumber.refine((val) => Number.isInteger(val), 'Not an integer')
