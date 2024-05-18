@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable n/no-process-env */
 import z from 'zod'
 
 declare let process: {
