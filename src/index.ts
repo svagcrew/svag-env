@@ -100,11 +100,11 @@ export const zEnv = z.string().trim()
 export const zEnvOptional = zEnv.optional()
 export const zEnvRequired = zEnv.refine((val) => !!val, 'Required')
 export const zEnvRequiredOnNotLocalHost = zEnvOptional.refine(
-  (val) => `${process?.env?.HOST_ENV}` === 'local' || !!val,
+  (val) => `${process.env.HOST_ENV}` === 'local' || !!val,
   'Required on not local host'
 )
 export const zEnvRequiredOnProductionHost = zEnvOptional.refine(
-  (val) => `${process?.env?.HOST_ENV}` === 'production' || !!val,
+  (val) => `${process.env.HOST_ENV}` === 'production' || !!val,
   'Required on production node env'
 )
 export const zEnvBoolean = z.enum(['true', 'false', '1', '0']).transform((val) => val === 'true' || val === '1')
