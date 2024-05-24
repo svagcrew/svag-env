@@ -9,11 +9,19 @@ type Prettify<T> = {
   [K in keyof T]: T[K]
 } & {}
 
-export const createEnvThings = <T extends z.ZodObject<any>>({ schema, source }: { schema: T; source: any }) => {
+export const createEnvThings = <T extends z.ZodObject<any>>({
+  schema,
+  source,
+  name,
+}: {
+  schema: T
+  source: any
+  name: string
+}) => {
   const getAllEnv = () => {
     const parseResult = schema.safeParse(source)
     if (!parseResult.success) {
-      throw new Error(`Invalid environment variables: ${JSON.stringify(parseResult.error.errors)}`)
+      throw new Error(`Invalid environment variables ${name}: ${JSON.stringify(parseResult.error.errors)}`)
     }
     return parseResult.data as z.infer<T>
   }
@@ -23,7 +31,7 @@ export const createEnvThings = <T extends z.ZodObject<any>>({ schema, source }: 
     const cuttedSource = { [key]: source[key] }
     const parseResult = cuttedSchema.safeParse(cuttedSource)
     if (!parseResult.success) {
-      throw new Error(`Invalid environment variables: ${JSON.stringify(parseResult.error.errors)}`)
+      throw new Error(`Invalid environment variables ${name}: ${JSON.stringify(parseResult.error.errors)}`)
     }
     return parseResult.data[key] as z.infer<T>[K]
   }
@@ -52,7 +60,7 @@ export const createEnvThings = <T extends z.ZodObject<any>>({ schema, source }: 
     )
     const parseResult = cuttedSchema.safeParse(cuttedSource)
     if (!parseResult.success) {
-      throw new Error(`Invalid environment variables: ${JSON.stringify(parseResult.error.errors)}`)
+      throw new Error(`Invalid environment variables ${name}: ${JSON.stringify(parseResult.error.errors)}`)
     }
     return parseResult.data as Prettify<Pick<z.infer<T>, K>>
   }
