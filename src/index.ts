@@ -65,21 +65,21 @@ export const createEnvThings = <T extends z.ZodObject<any>>({
     return parseResult.data as Prettify<Pick<z.infer<T>, K>>
   }
 
-  const isLocalHost = () => source.HOST_ENV === 'local'
-  const isProductionHost = () => source.HOST_ENV === 'production'
-  const isProductionEnv = () => source.NODE_ENV === 'production'
-  const isTestEnv = () => source.NODE_ENV === 'test'
-  const isDevelopmentEnv = () => source.NODE_ENV === 'development'
+  const isLocalHostEnv = () => source.HOST_ENV === 'local'
+  const isProductionHostEnv = () => source.HOST_ENV === 'production'
+  const isProductionNodeEnv = () => source.NODE_ENV === 'production'
+  const isTestNodeEnv = () => source.NODE_ENV === 'test'
+  const isDevelopmentNodeEnv = () => source.NODE_ENV === 'development'
 
   return {
     getAllEnv,
     getOneEnv,
     getSomeEnv,
-    isLocalHost,
-    isProductionHost,
-    isProductionEnv,
-    isTestEnv,
-    isDevelopmentEnv,
+    isLocalHostEnv,
+    isProductionHostEnv,
+    isProductionNodeEnv,
+    isTestNodeEnv,
+    isDevelopmentNodeEnv,
   }
 }
 
