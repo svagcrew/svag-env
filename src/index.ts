@@ -18,12 +18,29 @@ export const createEnvThings = <T extends z.ZodObject<any>>({
   source: any
   name: string
 }) => {
+  const isLocalHostEnv = () => source.HOST_ENV === 'local'
+  const isProductionHostEnv = () => source.HOST_ENV === 'production'
+  const isProductionNodeEnv = () => source.NODE_ENV === 'production'
+  const isTestNodeEnv = () => source.NODE_ENV === 'test'
+  const isDevelopmentNodeEnv = () => source.NODE_ENV === 'development'
+  const helpers = {
+    isLocalHostEnv,
+    isProductionHostEnv,
+    isProductionNodeEnv,
+    isTestNodeEnv,
+    isDevelopmentNodeEnv,
+  }
+
   const getAllEnv = () => {
     const parseResult = schema.safeParse(source)
     if (!parseResult.success) {
       throw new Error(`Invalid environment variables ${name}: ${JSON.stringify(parseResult.error.errors)}`)
     }
-    return parseResult.data as z.infer<T>
+    const allEnv = parseResult.data as z.infer<T>
+    return {
+      ...allEnv,
+      ...helpers,
+    }
   }
 
   const getOneEnv = <K extends keyof z.input<T>>(key: K) => {
@@ -65,21 +82,11 @@ export const createEnvThings = <T extends z.ZodObject<any>>({
     return parseResult.data as Prettify<Pick<z.infer<T>, K>>
   }
 
-  const isLocalHostEnv = () => source.HOST_ENV === 'local'
-  const isProductionHostEnv = () => source.HOST_ENV === 'production'
-  const isProductionNodeEnv = () => source.NODE_ENV === 'production'
-  const isTestNodeEnv = () => source.NODE_ENV === 'test'
-  const isDevelopmentNodeEnv = () => source.NODE_ENV === 'development'
-
   return {
     getAllEnv,
     getOneEnv,
     getSomeEnv,
-    isLocalHostEnv,
-    isProductionHostEnv,
-    isProductionNodeEnv,
-    isTestNodeEnv,
-    isDevelopmentNodeEnv,
+    ...helpers,
   }
 }
 
