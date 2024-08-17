@@ -110,7 +110,7 @@ export const parsePublicEnv = ({
   }, {})
 
 export const zNodeEnv = z.enum(['development', 'production', 'test'])
-export const zHostEnv = z.enum(['local', 'development', 'staging', 'production'])
+export const zHostEnv = z.enum(['local', 'development', 'stage', 'production'])
 export const zEnv = z.string().trim()
 export const zEnvOptional = zEnv.optional()
 export const zEnvRequired = zEnv.refine((val) => !!val, 'Required')
