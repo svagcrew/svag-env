@@ -1,6 +1,6 @@
 {
   "name": "svag-env",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "homepage": "https://github.com/svagcrew/svag-env",
   "repository": {
     "type": "git",
@@ -23,15 +23,18 @@
     "./dist/**/*"
   ],
   "scripts": {
-    "prettify": "svag-prettier prettify",
-    "dev": "svag-ts dev",
-    "watch": "svag-ts watch",
-    "types": "svag-ts types",
     "build": "svag-ts build",
-    "start": "svag-ts start",
+    "dev": "svag-ts dev",
     "lint": "svag-lint lint",
+    "prepare": "husky",
+    "prettify": "svag-prettier prettify",
+    "start": "svag-ts start",
     "test": "svag-jest test",
-    "prepare": "husky"
+    "types": "svag-ts types",
+    "watch": "svag-ts watch"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
@@ -51,8 +54,5 @@
     "tsc-alias": "^1.8.10",
     "typescript": "^5.4.5"
   },
-  "type": "module",
-  "dependencies": {
-    "zod": "^3.23.8"
-  }
+  "type": "module"
 }
