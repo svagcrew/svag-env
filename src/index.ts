@@ -19,7 +19,7 @@ export const createEnvThings = <T extends z.ZodObject<any>>({
   name: string
 }) => {
   const isLocalHostEnv = () => source.HOST_ENV === 'local'
-  const isNotHostEnv = () => source.HOST_ENV !== 'local'
+  const isNotLocalHostEnv = () => source.HOST_ENV !== 'local'
   const isDevHostEnv = () => source.HOST_ENV === 'dev'
   const isStageHostEnv = () => source.HOST_ENV === 'stage'
   const isProdHostEnv = () => source.HOST_ENV === 'prod'
@@ -28,7 +28,7 @@ export const createEnvThings = <T extends z.ZodObject<any>>({
   const isDevelopmentNodeEnv = () => source.NODE_ENV === 'development'
   const helpers = {
     isLocalHostEnv,
-    isNotHostEnv,
+    isNotLocalHostEnv,
     isDevHostEnv,
     isStageHostEnv,
     isProdHostEnv,
