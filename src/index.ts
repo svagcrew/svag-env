@@ -26,6 +26,7 @@ export const createEnvThings = <T extends z.ZodObject<any>>({
   const isProductionNodeEnv = () => source.NODE_ENV === 'production'
   const isTestNodeEnv = () => source.NODE_ENV === 'test'
   const isDevelopmentNodeEnv = () => source.NODE_ENV === 'development'
+
   const helpers = {
     isLocalHostEnv,
     isNotLocalHostEnv,
