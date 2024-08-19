@@ -19,13 +19,19 @@ export const createEnvThings = <T extends z.ZodObject<any>>({
   name: string
 }) => {
   const isLocalHostEnv = () => source.HOST_ENV === 'local'
-  const isProductionHostEnv = () => source.HOST_ENV === 'production'
+  const isNotHostEnv = () => source.HOST_ENV !== 'local'
+  const isDevHostEnv = () => source.HOST_ENV === 'dev'
+  const isStageHostEnv = () => source.HOST_ENV === 'stage'
+  const isProdHostEnv = () => source.HOST_ENV === 'prod'
   const isProductionNodeEnv = () => source.NODE_ENV === 'production'
   const isTestNodeEnv = () => source.NODE_ENV === 'test'
   const isDevelopmentNodeEnv = () => source.NODE_ENV === 'development'
   const helpers = {
     isLocalHostEnv,
-    isProductionHostEnv,
+    isNotHostEnv,
+    isDevHostEnv,
+    isStageHostEnv,
+    isProdHostEnv,
     isProductionNodeEnv,
     isTestNodeEnv,
     isDevelopmentNodeEnv,
@@ -110,17 +116,17 @@ export const parsePublicEnv = ({
   }, {})
 
 export const zNodeEnv = z.enum(['development', 'production', 'test'])
-export const zHostEnv = z.enum(['local', 'development', 'stage', 'production'])
+export const zHostEnv = z.enum(['local', 'dev', 'stage', 'prod'])
 export const zEnv = z.string().trim()
 export const zEnvOptional = zEnv.optional()
 export const zEnvRequired = zEnv.refine((val) => !!val, 'Required')
 export const zEnvRequiredOnNotLocalHost = zEnvOptional.refine(
   (val) => `${process.env.HOST_ENV}` === 'local' || !!val,
-  'Required on not local host'
+  'Required on not local host env'
 )
 export const zEnvRequiredOnProductionHost = zEnvOptional.refine(
-  (val) => `${process.env.HOST_ENV}` === 'production' || !!val,
-  'Required on production node env'
+  (val) => `${process.env.HOST_ENV}` === 'prod' || !!val,
+  'Required on prod host env'
 )
 export const zEnvBoolean = z.enum(['true', 'false', '1', '0']).transform((val) => val === 'true' || val === '1')
 export const zEnvNumber = z.union([
