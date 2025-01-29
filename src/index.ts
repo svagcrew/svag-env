@@ -4,7 +4,6 @@ import z from 'zod'
 declare let process: {
   env: Record<string, string>
 }
-
 type Prettify<T> = {
   [K in keyof T]: T[K]
 } & {}
