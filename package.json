@@ -1,6 +1,6 @@
 {
   "name": "svag-env",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "homepage": "https://github.com/svagcrew/svag-env",
   "repository": {
     "type": "git",
@@ -36,15 +36,15 @@
   "scripts": {
     "types": "svag-ts types",
     "build": "pnpm rimraf dist && pnpm tsc --project tsconfig.build.json && pnpm tsc-alias --project tsconfig.build.json && pnpm tsc --project tsconfig.build.cjs.json && pnpm tsc-alias --project tsconfig.build.cjs.json && pnpm rename-js",
+    "dev": "svag-ts dev",
+    "lint": "svag-lint lint",
+    "prepare": "husky",
+    "prettify": "svag-prettier prettify",
     "rename-cjs": "rename 'dist/cjs/*.js' 'dist/cjs/{{f}}.cjs'",
     "rename-cjs-map": "rename 'dist/cjs/*.js.map' 'dist/cjs/{{f}}.cjs.map'",
     "rename-esm": "rename 'dist/esm/*.js' 'dist/esm/{{f}}.mjs'",
     "rename-esm-map": "rename 'dist/esm/*.js.map' 'dist/esm/{{f}}.mjs.map'",
     "rename-js": "pnpm rename-cjs && pnpm rename-cjs-map && pnpm rename-esm && pnpm rename-esm-map",
-    "dev": "svag-ts dev",
-    "lint": "svag-lint lint",
-    "prepare": "husky",
-    "prettify": "svag-prettier prettify",
     "start": "svag-ts start",
     "test": "svag-jest test",
     "watch": "svag-ts watch"
