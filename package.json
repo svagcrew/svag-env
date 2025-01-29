@@ -57,9 +57,15 @@
   },
   "exports": {
     ".": {
-      "default": "./dist/esm/index.js",
+      "default": "./dist/cjs/index.js",
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js"
+    },
+    "./cjs": {
+      "require": "./dist/cjs/index.cjs"
+    },
+    "./esm": {
+      "import": "./dist/esm/index.js"
     }
   },
   "type": "module",
