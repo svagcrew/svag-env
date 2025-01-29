@@ -22,17 +22,10 @@
   "types": "./dist/esm/index.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/cjs/index.js",
-      "import": "./dist/esm/index.js",
-      "default": "./dist/cjs/index.js"
-    },
-    "./cjs": {
-      "types": "./dist/cjs/index.d.ts",
-      "require": "./dist/cjs/index.js"
-    },
-    "./esm": {
       "types": "./dist/esm/index.d.ts",
-      "import": "./dist/esm/index.js"
+      "require": "./dist/cjs/index.mjs",
+      "import": "./dist/esm/index.mjs",
+      "default": "./dist/cjs/index.cjs"
     }
   },
   "type": "module",
@@ -42,7 +35,12 @@
   ],
   "scripts": {
     "types": "svag-ts types",
-    "build": "pnpm rimraf dist && pnpm tsc --project tsconfig.build.json && pnpm tsc-alias --project tsconfig.build.json && pnpm tsc --project tsconfig.build.cjs.json && pnpm tsc-alias --project tsconfig.build.cjs.json",
+    "build": "pnpm rimraf dist && pnpm tsc --project tsconfig.build.json && pnpm tsc-alias --project tsconfig.build.json && pnpm tsc --project tsconfig.build.cjs.json && pnpm tsc-alias --project tsconfig.build.cjs.json && pnpm rename-js",
+    "rename-cjs": "rename 'dist/cjs/*.js' 'dist/cjs/{{f}}.cjs'",
+    "rename-cjs-map": "rename 'dist/cjs/*.js.map' 'dist/cjs/{{f}}.cjs.map'",
+    "rename-esm": "rename 'dist/esm/*.js' 'dist/esm/{{f}}.mjs'",
+    "rename-esm-map": "rename 'dist/esm/*.js.map' 'dist/esm/{{f}}.mjs.map'",
+    "rename-js": "pnpm rename-cjs && pnpm rename-cjs-map && pnpm rename-esm && pnpm rename-esm-map",
     "dev": "svag-ts dev",
     "lint": "svag-lint lint",
     "prepare": "husky",
@@ -62,6 +60,7 @@
     "husky": "^9.0.11",
     "jest": "30.0.0-alpha.4",
     "prettier": "^3.2.5",
+    "rename-cli": "^7.0.2",
     "rimraf": "^5.0.7",
     "svag-husky": "^0.1.49",
     "svag-jest": "^0.1.39",
