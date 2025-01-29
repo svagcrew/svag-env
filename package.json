@@ -1,6 +1,6 @@
 {
   "name": "svag-env",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "homepage": "https://github.com/svagcrew/svag-env",
   "repository": {
     "type": "git",
@@ -17,17 +17,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
-  "types": "./dist/esm/index.d.ts",
-  "exports": {
-    ".": {
-      "require": "./dist/cjs/index.js",
-      "import": "./dist/esm/index.js",
-      "default": "./dist/esm/index.js"
-    }
-  },
-  "type": "module",
+  "main": "./dist/cjs/index.js",
   "files": [
     "./src/**/*",
     "./dist/**/*"
@@ -63,5 +54,14 @@
     "ts-jest": "^29.1.2",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.4.5"
-  }
+  },
+  "exports": {
+    ".": {
+      "default": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "type": "module",
+  "types": "./dist/esm/index.d.ts"
 }
