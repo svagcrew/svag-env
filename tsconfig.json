@@ -1,11 +1,23 @@
 {
   "extends": "svag-ts/configs/base.json",
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
-    "outDir": "./dist"
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2020",
+    "allowSyntheticDefaultImports": false,
+    "outDir": "./dist/esm",
+    "declaration": true,
+    "declarationDir": "./dist/esm",
+    "declarationMap": true,
+    "resolveJsonModule": true
   }
 }
